@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollLogin"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/wordy_blue"
+    android:fillViewport="true"
+    android:overScrollMode="ifContentScrolls"
+    android:scrollbars="none"
+    tools:context=".LoginActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/contenidoLogin"
+        android:layout_width="match_parent"
+        android:layout_height="800dp">
+
+        <!-- ===== Guidelines horizontales (% de alto) ===== -->
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glCreamTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.07"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glTitleTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.10"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glSlogan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.215"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glCardTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.295"/>
+
+        <!-- ===== Guidelines verticales (% de ancho) ===== -->
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.10"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.90"/>
+
+        <!-- ===== Fondo crema ===== -->
+        <View
+            android:id="@+id/bgCream"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/bg_oval_cream"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/glCreamTop"/>
+
+        <!-- ===== Título (zona fija: se autoajusta dentro de ella) ===== -->
+        <TextView
+            android:id="@+id/tvTitulo"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:autoSizeMaxTextSize="44sp"
+            android:autoSizeMinTextSize="20sp"
+            android:autoSizeTextType="uniform"
+            android:fontFamily="@font/fredoka_normal"
+            android:gravity="center"
+            android:lineSpacingMultiplier="0.9"
+            android:maxLines="2"
+            android:text="@string/bienvenido"
+            android:textColor="@color/wordy_navy"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/glSlogan"
+            app:layout_constraintEnd_toEndOf="@id/glEnd"
+            app:layout_constraintStart_toStartOf="@id/glStart"
+            app:layout_constraintTop_toBottomOf="@id/glTitleTop"/>
+
+        <TextView
+            android:id="@+id/tvSlogan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/varela_normal"
+            android:gravity="center"
+            android:text="@string/slogan"
+            android:textColor="@color/wordy_navy"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/glEnd"
+            app:layout_constraintStart_toStartOf="@id/glStart"
+            app:layout_constraintTop_toBottomOf="@id/glSlogan"/>
+
+        <!-- ===== Tarjeta amarilla ===== -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cardLogin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_card"
+            android:paddingStart="16dp"
+            android:paddingTop="52dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="30dp"
+            app:layout_constraintEnd_toEndOf="@id/glEnd"
+            app:layout_constraintStart_toStartOf="@id/glStart"
+            app:layout_constraintTop_toBottomOf="@id/glCardTop">
+
+            <TextView
+                android:id="@+id/tvInicia"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/varela_normal"
+                android:gravity="center"
+                android:text="@string/inicia_sesion"
+                android:textColor="@color/wordy_navy"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Spinner
+                android:id="@+id/spTipoCuenta"
+                android:layout_width="0dp"
+                android:layout_height="58dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_field_white_spinner"
+                android:popupBackground="@android:color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvInicia"
+                tools:listitem="@layout/item_spinner" />
+
+            <EditText
+                android:id="@+id/etUsuario"
+                style="@style/WordyField"
+                android:layout_width="0dp"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/bg_field_white"
+                android:hint="@string/usuario"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:paddingBottom="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/spTipoCuenta" />
+
+            <EditText
+                android:id="@+id/etContrasena"
+                style="@style/WordyField"
+                android:layout_width="0dp"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/bg_field_white"
+                android:hint="@string/contrasena"
+                android:importantForAutofill="no"
+                android:inputType="textPassword"
+                android:paddingBottom="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/etUsuario" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- ===== Avatar sobre el borde de la tarjeta ===== -->
+        <ImageView
+            android:id="@+id/ivAvatar"
+            android:layout_width="84dp"
+            android:layout_height="84dp"
+            android:background="@drawable/bg_avatar_tab"
+            android:contentDescription="@null"
+            android:padding="14dp"
+            android:src="@drawable/ic_avatar"
+            android:translationY="-42dp"
+            app:layout_constraintEnd_toEndOf="@id/cardLogin"
+            app:layout_constraintStart_toStartOf="@id/cardLogin"
+            app:layout_constraintTop_toTopOf="@id/cardLogin"/>
+
+        <!-- ===== Botones ===== -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnIngresar"
+            style="@style/WordyButton"
+            android:layout_width="0dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/bg_btn_coral"
+            android:text="@string/ingresar"
+            app:layout_constraintEnd_toStartOf="@id/btnCrearCuenta"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="@id/glStart"
+            app:layout_constraintTop_toBottomOf="@id/cardLogin"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnCrearCuenta"
+            style="@style/WordyButton"
+            android:layout_width="0dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/bg_field_orange"
+            android:text="@string/crear_cuenta"
+            app:layout_constraintEnd_toEndOf="@id/glEnd"
+            app:layout_constraintStart_toEndOf="@id/btnIngresar"
+            app:layout_constraintTop_toTopOf="@id/btnIngresar"/>
+
+        <!-- ===== Logo: va al FINAL para quedar encima de todo ===== -->
+        <ImageView
+            android:id="@+id/ivLogo"
+            android:layout_width="266dp"
+            android:layout_height="204dp"
+            android:contentDescription="@string/logo_wordy"
+            android:scaleType="centerCrop"
+            android:src="@drawable/logo_wordy"
+            android:translationY="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.443"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

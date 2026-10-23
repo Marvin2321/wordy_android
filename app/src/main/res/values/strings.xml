@@ -1,0 +1,64 @@
+<resources>
+    <string name="app_name">Wordy</string>
+    <string name="logo_wordy">Logo de Wordy</string>
+    <string name="bienvenido">¡Bienvenido a Wordy!</string>
+    <string name="slogan">Donde las letras cobran vida…</string>
+    <string name="inicia_sesion">Inicia sesión para continuar</string>
+    <string name="usuario">USUARIO</string>
+    <string name="contrasena">CONTRASEÑA</string>
+    <string name="ingresar">Ingresar</string>
+    <string name="crear_cuenta">Crear cuenta</string>
+
+    <string-array name="tipos_cuenta">
+        <item>TIPO DE CUENTA</item>
+        <item>NIÑO / NIÑA</item>
+        <item>PADRE / TUTOR</item>
+        <item>DOCENTE</item>
+    </string-array>
+    <string name="crea_cuenta_continuar">Crea una cuenta para continuar</string>
+    <string name="correo">CORREO</string>
+    <string name="registrar">Registrar</string>
+    <string name="frase_del_dia">Frase / Refrán del día</string>
+    <string name="refran_formato">“%1$s”</string>
+    <string name="dias_racha">Días de\nRacha</string>
+    <string name="estrellas_acumuladas">Estrellas\nAcumuladas</string>
+    <string name="continuar_aventura">¡Continuar aventura!</string>
+    <string name="cerrar_sesion">Cerrar\nsesión.</string>
+    <string name="img_flame">Racha de días</string>
+    <string name="img_star">Estrellas acumuladas</string>
+    <string name="img_gusano_lector">Gusanito leyendo un libro</string>
+    <string name="img_cerrar_sesion">Cerrar sesión</string>
+
+    <string-array name="refranes">
+        <item>No dejes para mañana lo que puedes hacer hoy</item>
+        <item>Más vale tarde que nunca</item>
+        <item>A quien madruga, Dios le ayuda</item>
+        <item>Poco a poco se va lejos</item>
+        <item>La práctica hace al maestro</item>
+        <item>Querer es poder</item>
+        <item>Al mal tiempo, buena cara</item>
+        <item>Lo que bien se aprende, nunca se olvida</item>
+        <item>Quien siembra, recoge</item>
+        <item>La unión hace la fuerza</item>
+        <item>El que persevera, alcanza</item>
+        <item>Del dicho al hecho hay mucho trecho</item>
+        <item>Nunca es tarde para aprender</item>
+        <item>Quien tiene un amigo, tiene un tesoro</item>
+        <item>Sin prisa, pero sin pausa</item>
+        <item>Cada día es una nueva aventura</item>
+        <item>Leer es soñar con los ojos abiertos</item>
+        <item>Equivocarse es parte de aprender</item>
+        <item>Una sonrisa abre muchas puertas</item>
+        <item>Quien lee, vuela sin alas</item>
+        <item>Cada letra cuenta, cada palabra suma</item>
+        <item>Hoy es un buen día para aprender algo nuevo</item>
+        <item>Después de la tormenta viene la calma</item>
+        <item>El que la sigue, la consigue</item>
+        <item>Lo cortés no quita lo valiente</item>
+        <item>Haz el bien sin mirar a quién</item>
+        <item>Camina despacio, pero no te detengas</item>
+        <item>Con paciencia y constancia, todo se alcanza</item>
+        <item>Más vale maña que fuerza</item>
+        <item>Cuando una puerta se cierra, otra se abre</item>
+    </string-array>
+</resources>

@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollRegistro"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/wordy_blue"
+    android:fillViewport="true"
+    android:overScrollMode="ifContentScrolls"
+    android:scrollbars="none"
+    tools:context=".RegistroActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/contenidoRegistro"
+        android:layout_width="match_parent"
+        android:layout_height="800dp">
+
+        <!-- ===== Guidelines horizontales ===== -->
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glCreamTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.07"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glTitleTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.10"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glSlogan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.215"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glCardTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.295"/>
+
+        <!-- ===== Guidelines verticales ===== -->
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.10"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.90"/>
+
+        <!-- ===== Fondo crema ===== -->
+        <View
+            android:id="@+id/bgCream"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/bg_oval_cream"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/glCreamTop"/>
+
+        <!-- ===== Título y eslogan ===== -->
+        <TextView
+            android:id="@+id/tvTitulo"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:autoSizeMaxTextSize="44sp"
+            android:autoSizeMinTextSize="20sp"
+            android:autoSizeTextType="uniform"
+            android:fontFamily="@font/fredoka_normal"
+            android:gravity="center"
+            android:lineSpacingMultiplier="0.9"
+            android:maxLines="2"
+            android:text="@string/bienvenido"
+            android:textColor="@color/wordy_navy"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/glSlogan"
+            app:layout_constraintEnd_toEndOf="@id/glEnd"
+            app:layout_constraintStart_toStartOf="@id/glStart"
+            app:layout_constraintTop_toBottomOf="@id/glTitleTop"/>
+
+        <TextView
+            android:id="@+id/tvSlogan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/varela_normal"
+            android:gravity="center"
+            android:text="@string/slogan"
+            android:textColor="@color/wordy_navy"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/glEnd"
+            app:layout_constraintStart_toStartOf="@id/glStart"
+            app:layout_constraintTop_toBottomOf="@id/glSlogan"/>
+
+        <!-- ===== Tarjeta amarilla ===== -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cardRegistro"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_card"
+            android:paddingStart="16dp"
+            android:paddingTop="52dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="30dp"
+            app:layout_constraintEnd_toEndOf="@id/glEnd"
+            app:layout_constraintStart_toStartOf="@id/glStart"
+            app:layout_constraintTop_toBottomOf="@id/glCardTop">
+
+            <TextView
+                android:id="@+id/tvCrea"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/varela_normal"
+                android:gravity="center"
+                android:text="@string/crea_cuenta_continuar"
+                android:textColor="@color/wordy_navy"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <Spinner
+                android:id="@+id/spTipoCuenta"
+                android:layout_width="0dp"
+                android:layout_height="58dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_field_white_spinner"
+                android:paddingBottom="6dp"
+                android:popupBackground="@color/wordy_white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvCrea"
+                tools:listitem="@layout/item_spinner"/>
+
+            <EditText
+                android:id="@+id/etCorreo"
+                style="@style/WordyField"
+                android:layout_width="0dp"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/bg_field_white"
+                android:hint="@string/correo"
+                android:importantForAutofill="no"
+                android:inputType="textEmailAddress"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/spTipoCuenta"/>
+
+            <EditText
+                android:id="@+id/etUsuario"
+                style="@style/WordyField"
+                android:layout_width="0dp"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/bg_field_white"
+                android:hint="@string/usuario"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/etCorreo"/>
+
+            <EditText
+                android:id="@+id/etContrasena"
+                style="@style/WordyField"
+                android:layout_width="0dp"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/bg_field_white"
+                android:hint="@string/contrasena"
+                android:importantForAutofill="no"
+                android:inputType="textPassword"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/etUsuario"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- ===== Avatar sobre el borde de la tarjeta ===== -->
+        <ImageView
+            android:id="@+id/ivAvatar"
+            android:layout_width="84dp"
+            android:layout_height="84dp"
+            android:background="@drawable/bg_avatar_tab"
+            android:contentDescription="@null"
+            android:padding="14dp"
+            android:src="@drawable/ic_avatar"
+            android:translationY="-42dp"
+            app:layout_constraintEnd_toEndOf="@id/cardRegistro"
+            app:layout_constraintStart_toStartOf="@id/cardRegistro"
+            app:layout_constraintTop_toTopOf="@id/cardRegistro"/>
+
+        <!-- ===== Botón Registrar (centrado, 40% del ancho) ===== -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnRegistrar"
+            style="@style/WordyButton"
+            android:layout_width="0dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_btn_pink"
+            android:text="@string/registrar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardRegistro"
+            app:layout_constraintWidth_percent="0.4"/>
+
+        <!-- ===== Logo (al final para quedar encima) ===== -->
+        <ImageView
+            android:id="@+id/ivLogo"
+            android:layout_width="266dp"
+            android:layout_height="204dp"
+            android:contentDescription="@string/logo_wordy"
+            android:scaleType="centerCrop"
+            android:src="@drawable/logo_wordy"
+            android:translationY="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.443"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

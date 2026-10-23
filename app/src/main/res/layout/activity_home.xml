@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/contenidoHome"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/wordy_blue"
+    android:fitsSystemWindows="true"
+    tools:context=".HomeActivity">
+
+    <!-- ===== Guidelines horizontales (% de alto) ===== -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glSkyTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.10" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glCreamTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.66" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glStatsTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.185" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glFraseTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.43" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glFraseBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.86" />
+
+    <!-- ===== Guidelines verticales (% de ancho) ===== -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.04" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.96" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glMid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glFraseStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.10" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glFraseEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.90" />
+
+    <!-- ===== Fondos: óvalo crema (completo) + cielo encima (parte alta) ===== -->
+    <View
+        android:id="@+id/bgCream"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_oval_cream"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/glSkyTop" />
+
+    <View
+        android:id="@+id/bgSky"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_sky_oval"
+        app:layout_constraintBottom_toTopOf="@id/glCreamTop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/glSkyTop" />
+
+    <!-- ===== Logo ===== -->
+    <ImageView
+        android:id="@+id/ivLogo"
+        android:layout_width="266dp"
+        android:layout_height="204dp"
+        android:contentDescription="@string/logo_wordy"
+        android:scaleType="centerCrop"
+        android:src="@drawable/logo_wordy"
+        android:translationY="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.443"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <!-- ===== Tarjeta: racha ===== -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cardRacha"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/bg_card_white"
+        android:paddingStart="14dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="18dp"
+        app:layout_constraintEnd_toStartOf="@id/glMid"
+        app:layout_constraintStart_toStartOf="@id/glStart"
+        app:layout_constraintTop_toBottomOf="@id/glStatsTop">
+
+        <ImageView
+            android:id="@+id/ivFlame"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:contentDescription="@string/img_flame"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvRacha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/fredoka_normal"
+            android:includeFontPadding="false"
+            android:text="0"
+            android:textColor="@color/wordy_navy"
+            android:textSize="46sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivFlame"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/tvDiasRacha"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/varela_normal"
+            android:text="@string/dias_racha"
+            android:textColor="@color/wordy_navy"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/tvRacha"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tvRacha" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- ===== Tarjeta: estrellas ===== -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cardEstrellas"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/bg_card_white"
+        android:paddingStart="14dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="18dp"
+        app:layout_constraintEnd_toEndOf="@id/glEnd"
+        app:layout_constraintStart_toEndOf="@id/glMid"
+        app:layout_constraintTop_toBottomOf="@id/glStatsTop">
+
+        <ImageView
+            android:id="@+id/ivStar"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:contentDescription="@string/img_star"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvEstrellas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/fredoka_normal"
+            android:includeFontPadding="false"
+            android:text="0"
+            android:textColor="@color/wordy_navy"
+            android:textSize="46sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivStar"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/tvEstrellasLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/varela_normal"
+            android:text="@string/estrellas_acumuladas"
+            android:textColor="@color/wordy_navy"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/tvEstrellas"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tvEstrellas" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- ===== Tarjeta grande: frase / refrán del día ===== -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cardFrase"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_card_white"
+        android:paddingBottom="12dp"
+        app:layout_constraintBottom_toTopOf="@id/glFraseBottom"
+        app:layout_constraintEnd_toEndOf="@id/glFraseEnd"
+        app:layout_constraintStart_toStartOf="@id/glFraseStart"
+        app:layout_constraintTop_toBottomOf="@id/glFraseTop">
+
+        <TextView
+            android:id="@+id/tvFraseTitulo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="14dp"
+            android:fontFamily="@font/varela_normal"
+            android:text="@string/frase_del_dia"
+            android:textColor="@color/wordy_navy"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvRefran"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="14dp"
+            android:fontFamily="@font/fredoka_normal"
+            android:gravity="center"
+            android:lineSpacingMultiplier="1.1"
+            android:textColor="@color/wordy_quote"
+            android:textSize="21sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvFraseTitulo"
+            tools:text="“No dejes para mañana lo que puedes hacer hoy”" />
+
+        <ImageView
+            android:id="@+id/ivGusano"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/img_gusano_lector"
+            android:src="@drawable/img_gusano_lector"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintWidth_percent="0.62" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnContinuar"
+            style="@style/WordyButton"
+            android:layout_width="0dp"
+            android:layout_height="72dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/bg_btn_green"
+            android:fontFamily="@font/fredoka_normal"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:text="@string/continuar_aventura"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.72"
+            app:layout_constraintWidth_percent="0.42" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- ===== Cerrar sesión ===== -->
+    <LinearLayout
+        android:id="@+id/btnCerrarSesion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="12dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/ivCerrarSesion"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_icon_white"
+            android:contentDescription="@string/img_cerrar_sesion"
+            android:padding="8dp"
+            android:src="@drawable/ic_cerrar_sesion" />
+
+        <TextView
+            android:id="@+id/tvCerrarSesion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:fontFamily="@font/varela_normal"
+            android:text="@string/cerrar_sesion"
+            android:textColor="@color/wordy_white"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

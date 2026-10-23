@@ -1,0 +1,23 @@
+<resources>
+    <color name="wordy_blue">#4C74C9</color>
+    <color name="wordy_cream">#FFF8EC</color>
+    <color name="wordy_yellow">#FFE48F</color>
+    <color name="wordy_yellow_dark">#FFD45E</color>
+    <color name="wordy_navy">#1F2A4A</color>
+    <color name="wordy_white">#FFFF</color>
+    <color name="wordy_coral">#FF6B6B</color>
+    <color name="wordy_coral_dark">#D9595B</color>
+    <color name="wordy_orange">#FFA346</color>
+    <color name="wordy_orange_dark">#D68A38</color>
+    <color name="wordy_teal">#78D2C8</color>
+    <color name="wordy_teal_dark">#3E98A6</color>
+    <color name="wordy_purple">#A29BFE</color>
+    <color name="wordy_purple_dark">#8478C9</color>
+    <color name="wordy_pink">#FF7BAC</color>
+    <color name="wordy_pink_dark">#C25A82</color>
+    <color name="wordy_sky">#C8E6FB</color>
+    <color name="wordy_green">#A3C71F</color>
+    <color name="wordy_green_dark">#6E8A12</color>
+    <color name="wordy_quote">#4A9AAB</color>
+    <color name="wordy_shadow_gray">#D9D9E3</color>
+</resources>
