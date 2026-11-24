@@ -8,6 +8,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.wordy.databinding.ActivityRegistroBinding;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class RegistroActivity extends AppCompatActivity {
 
     private ActivityRegistroBinding binding;
@@ -33,17 +36,57 @@ public class RegistroActivity extends AppCompatActivity {
 
     private void configurarBotones() {
         binding.btnRegistrar.setOnClickListener(v -> {
-            String error = Validador.validarRegistro(
-                    binding.spTipoCuenta.getSelectedItemPosition(),
-                    binding.etCorreo.getText().toString(),
-                    binding.etUsuario.getText().toString(),
-                    binding.etContrasena.getText().toString());
+            int tipo = binding.spTipoCuenta.getSelectedItemPosition();
+            String correo = binding.etCorreo.getText().toString().trim();
+            String usuario = binding.etUsuario.getText().toString().trim();
+            String contrasena = binding.etContrasena.getText().toString();
+
+            String error = Validador.validarRegistro(tipo, correo, usuario, contrasena);
             if (error != null) {
                 Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
-            } else {
-                // TODO: guardar la cuenta (base de datos / API)
-                Toast.makeText(this, "¡Cuenta creada!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            registrarEnApi(tipo, correo, usuario, contrasena);
+        });
+    }
+
+    /** Posición del spinner → valor que entiende la API ("tutor" = rol 1, cualquier otro = rol 3). */
+    private String tipoParaApi(int posicion) {
+        switch (posicion) {
+            case 2:  return "tutor";   // PADRE / TUTOR
+            case 3:  return "docente"; // DOCENTE (hoy la API lo guarda como rol 3)
+            default: return "nino";    // NIÑO / NIÑA
+        }
+    }
+
+    private void registrarEnApi(int tipo, String correo, String usuario, String contrasena) {
+        JSONObject cuerpo = new JSONObject();
+        try {
+            cuerpo.put("nombre", usuario);          // la app aún no pide nombre real
+            cuerpo.put("usuario", usuario);
+            cuerpo.put("contrasena", contrasena);
+            cuerpo.put("tipo_cuenta", tipoParaApi(tipo));
+            cuerpo.put("correo", correo);           // la API actual lo ignora
+        } catch (JSONException e) {
+            Toast.makeText(this, "Error al preparar los datos", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        binding.btnRegistrar.setEnabled(false);
+
+        ApiClient.post("registro", cuerpo, new ApiClient.Respuesta() {
+            @Override
+            public void onExito(JSONObject json) {
+                if (isFinishing() || isDestroyed()) return;
+                Toast.makeText(RegistroActivity.this, "¡Cuenta creada!", Toast.LENGTH_SHORT).show();
                 finish(); // regresa al login
+            }
+
+            @Override
+            public void onError(String mensaje) {
+                if (isFinishing() || isDestroyed()) return;
+                binding.btnRegistrar.setEnabled(true);
+                Toast.makeText(RegistroActivity.this, mensaje, Toast.LENGTH_LONG).show();
             }
         });
     }
