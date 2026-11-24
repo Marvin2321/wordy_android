@@ -31,4 +31,67 @@
         <item name="android:textSize">17sp</item>
         <item name="android:textStyle">bold</item>
     </style>
+    <style name="WordyTitulo">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/fredoka_normal</item>
+        <item name="android:gravity">center</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:lineSpacingMultiplier">0.92</item>
+        <item name="android:textColor">@color/wordy_navy</item>
+        <item name="android:textSize">40sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="WordySubtitulo">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/varela_normal</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/wordy_navy</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="WordyCuerpo">
+        <item name="android:fontFamily">@font/varela_normal</item>
+        <item name="android:lineSpacingMultiplier">1.12</item>
+        <item name="android:textColor">@color/wordy_navy</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="WordyOpcion">
+        <item name="android:layout_height">42dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:fontFamily">@font/varela_normal</item>
+        <item name="android:gravity">center</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:paddingBottom">6dp</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:textColor">@color/wordy_navy</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="WordyNivel">
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:fontFamily">@font/fredoka_normal</item>
+        <item name="android:gravity">center</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:textColor">@color/wordy_navy</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="WordyFooterTexto">
+        <item name="android:fontFamily">@font/varela_normal</item>
+        <item name="android:textColor">@color/wordy_white</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

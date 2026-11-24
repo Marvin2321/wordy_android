@@ -58,7 +58,8 @@ public class HomeActivity extends AppCompatActivity {
             // TODO: abrir la actividad/juego. Al terminar, llamar:
             //   progreso.registrarActividad(correcta);
             //   mostrarProgreso(...)
-            Toast.makeText(this, "¡Próximamente!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, CuentaCuentosActivity.class);
+            startActivity(intent);
         });
 
         binding.btnCerrarSesion.setOnClickListener(v -> {

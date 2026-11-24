@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="10dp"
+    android:paddingTop="6dp"
+    android:paddingEnd="10dp"
+    android:paddingBottom="8dp">
+
+    <ImageView
+        android:id="@+id/btnHome"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/inicio"
+        android:padding="4dp"
+        android:src="@drawable/ic_home"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/btnRegresar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnHome"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="38dp"
+            android:layout_height="34dp"
+            android:contentDescription="@string/regresar"
+            android:src="@drawable/ic_regresar" />
+
+        <TextView
+            style="@style/WordyFooterTexto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/regresar" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btnRevisar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            style="@style/WordyFooterTexto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:text="@string/revisar"
+            android:textSize="13sp" />
+
+        <ImageView
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:contentDescription="@string/revisar"
+            android:src="@drawable/ic_revisar" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

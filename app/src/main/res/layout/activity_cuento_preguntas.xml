@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/wordy_blue"
+    android:fitsSystemWindows="true"
+    tools:context=".CuentoPreguntasActivity"
+    tools:ignore="HardcodedText">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glCremaTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.06" />
+
+    <View
+        android:id="@+id/bgCrema"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_oval_cream"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/glCremaTop" />
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/header_wordy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTitulo"
+        style="@style/WordyTitulo"
+        android:layout_marginTop="4dp"
+        android:text="@string/titulo_cuenta_cuentos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header" />
+
+    <TextView
+        android:id="@+id/tvSubtitulo"
+        style="@style/WordySubtitulo"
+        android:layout_marginTop="10dp"
+        android:text="@string/subtitulo_lectura"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitulo" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/cardPreguntas"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/bg_card_white"
+        android:paddingBottom="6dp"
+        app:layout_constraintBottom_toTopOf="@id/footer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSubtitulo">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                style="@style/WordyCuerpo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1. ¿Cuántos cerditos había?" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/p1OpcionA"
+                    style="@style/WordyOpcion"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_field_orange"
+                    android:text="a)  Dos" />
+
+                <TextView
+                    android:id="@+id/p1OpcionB"
+                    style="@style/WordyOpcion"
+                    android:layout_width="0dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_field_teal"
+                    android:text="b)  Tres" />
+
+                <TextView
+                    android:id="@+id/p1OpcionC"
+                    style="@style/WordyOpcion"
+                    android:layout_width="0dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_field_purple"
+                    android:text="c)  Cuatro" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/ivCerditos"
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@null"
+                android:src="@drawable/img_tres_cerditos" />
+
+            <TextView
+                style="@style/WordyCuerpo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="2. ¿Qué animal llegó a las casas?" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/p2OpcionA"
+                    style="@style/WordyOpcion"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_field_orange"
+                    android:text="a) Un perro" />
+
+                <TextView
+                    android:id="@+id/p2OpcionB"
+                    style="@style/WordyOpcion"
+                    android:layout_width="0dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_field_teal"
+                    android:text="b) Un gato" />
+
+                <TextView
+                    android:id="@+id/p2OpcionC"
+                    style="@style/WordyOpcion"
+                    android:layout_width="0dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_field_purple"
+                    android:text="c) Un lobo" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/WordyCuerpo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:text="3. ¿Qué casa no cayó?" />
+
+            <TextView
+                android:id="@+id/p3OpcionA"
+                style="@style/WordyOpcion"
+                android:layout_width="150dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_field_orange"
+                android:gravity="center_vertical"
+                android:text="a)  La de paja" />
+
+            <TextView
+                android:id="@+id/p3OpcionB"
+                style="@style/WordyOpcion"
+                android:layout_width="150dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_field_teal"
+                android:gravity="center_vertical"
+                android:text="b)  La de madera" />
+
+            <TextView
+                android:id="@+id/p3OpcionC"
+                style="@style/WordyOpcion"
+                android:layout_width="150dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_field_purple"
+                android:gravity="center_vertical"
+                android:text="c)  La de piedra" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <include
+        android:id="@+id/footer"
+        layout="@layout/footer_home_regresar_revisar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

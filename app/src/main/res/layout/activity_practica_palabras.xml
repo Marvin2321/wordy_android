@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/wordy_blue"
+    android:fitsSystemWindows="true"
+    tools:context=".PracticaPalabrasActivity"
+    tools:ignore="HardcodedText">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glCremaTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.06" />
+
+    <View
+        android:id="@+id/bgCrema"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_oval_cream"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/glCremaTop" />
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/header_wordy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTitulo"
+        style="@style/WordyTitulo"
+        android:layout_marginTop="4dp"
+        android:text="@string/titulo_aprende_palabras"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="6dp"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toTopOf="@id/footer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitulo">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp">
+
+            <!-- Tarjeta amarilla: sílabas -->
+            <LinearLayout
+                android:id="@+id/cardSilabas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_card"
+                android:orientation="vertical"
+                android:paddingStart="16dp"
+                android:paddingTop="16dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="28dp">
+
+                <TextView
+                    android:id="@+id/tvPreguntaSilabas"
+                    style="@style/WordyCuerpo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pregunta_silabas"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/opcionA"
+                        style="@style/WordyOpcion"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_field_orange"
+                        android:text="a)  LLA" />
+
+                    <TextView
+                        android:id="@+id/opcionB"
+                        style="@style/WordyOpcion"
+                        android:layout_width="0dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_field_teal"
+                        android:text="b)  YA" />
+
+                    <TextView
+                        android:id="@+id/opcionC"
+                        style="@style/WordyOpcion"
+                        android:layout_width="0dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_field_purple"
+                        android:text="c)  ILLA" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvSignificado"
+                style="@style/WordyCuerpo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:justificationMode="inter_word"
+                android:text="@string/pregunta_significado"
+                android:textSize="14sp"
+                tools:targetApi="o" />
+
+            <!-- Burbuja de pista + gusanito -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp">
+
+                <LinearLayout
+                    android:id="@+id/burbujaPista"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_burbuja"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/ivGusanoCabeza"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
+                        android:contentDescription="@null"
+                        android:src="@drawable/img_rel_baya" />
+
+                    <TextView
+                        style="@style/WordyCuerpo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:text="@string/pista_gusano"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/ivGusanoCabeza"
+                    android:layout_width="84dp"
+                    android:layout_height="84dp"
+                    android:contentDescription="@string/img_gusano_lector"
+                    android:src="@drawable/img_gusano_lector"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <include
+                android:id="@+id/btnDiccionario"
+                layout="@layout/chip_diccionario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <include
+        android:id="@+id/footer"
+        layout="@layout/footer_home_regresar_revisar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,6 +13,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Wordy">
+        <activity android:name=".CuentaCuentosActivity" android:exported="false" />
+        <activity android:name=".CuentaCuentosNivelesActivity" android:exported="false" />
+        <activity android:name=".CuentoLecturaActivity" android:exported="false" />
+        <activity android:name=".CuentoPreguntasActivity" android:exported="false" />
+        <activity android:name=".AprendePalabrasActivity" android:exported="false" />
+        <activity android:name=".AprendeActividadesActivity" android:exported="false" />
+        <activity android:name=".AprendeNivelesActivity" android:exported="false" />
+        <activity android:name=".PracticaPalabrasActivity" android:exported="false" />
+        <activity android:name=".RelacionarImagenesActivity" android:exported="false" />
+        <activity android:name=".DiccionarioActivity" android:exported="false" />
         <activity
             android:name=".RegistroActivity"
             android:exported="false"
@@ -24,12 +34,11 @@
             android:windowSoftInputMode="adjustResize"
             android:name=".LoginActivity"
             android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
-
 </manifest>

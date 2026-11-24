@@ -61,4 +61,34 @@
         <item>Más vale maña que fuerza</item>
         <item>Cuando una puerta se cierra, otra se abre</item>
     </string-array>
+    <!-- ===== Comunes ===== -->
+    <string name="menu">Menú</string>
+    <string name="inicio">Inicio</string>
+    <string name="regresar">Regresar</string>
+    <string name="revisar">Revisar</string>
+    <string name="img_mapa">Mapa de niveles</string>
+    <string name="jugar_ahora">¡Jugar\nahora!</string>
+    <string name="jugar">¡Jugar!</string>
+    <string name="diccionario_gusanito">Diccionario del\ngusanito</string>
+    <string name="reproducir_audio">Reproducir audio</string>
+
+    <!-- ===== Cuenta cuentos ===== -->
+    <string name="titulo_cuenta_cuentos">Cuenta\ncuentos</string>
+    <string name="subtitulo_cuenta_cuentos">¡Enciende tus ojos y oídos de detective!</string>
+    <string name="instrucciones_cuenta_cuentos">1. Elige tu nivel\nEmpieza a jugar y desbloquea nuevos cuentos conforme avances.\n\n2. Escucha y completa\nElige la palabra correcta cuando el audio se detenga y recibe retroalimentación.\n\n3. ¡Responde y gana!\nContesta la trivia final para ganar tus estrellas de súper lector.</string>
+    <string name="subtitulo_lectura">Nivel 1 - Los Tres Cerditos</string>
+    <string name="cuento_cerditos">Había una vez tres cerditos que vivían con su mamá en una ____. Un día, mamá les dijo: “Ya son grandes. Hagan su propia casa”. El primer cerdito hizo una casa de *****. El segundo hizo una casa de madera. El tercer cerdito construyó una casa de piedra. Los tres estaban felices con sus casas. Pero un lobo grande y malo fue a la casa de paja y dijo: “¡Abre la casa!”. El cerdito respondió: “¡****!”. El lobo sopló y sopló, y la casa de paja cayó.\nEl cerdito corrió a la casa de madera. El lobo también llegó y dijo: “¡Abre la casa!”. El cerdito respondió: “¡**!”. El lobo sopló y sopló, y la casa de madera cayó. Los dos cerditos corrieron a la casa de piedra con su hermano. El lobo llegó y sopló con mucha fuerza, pero la casa no cayó. Los tres cerditos estaban ****. El lobo se fue y los tres cerditos se quedaron juntos, muy felices.</string>
+
+    <!-- ===== Aprende palabras ===== -->
+    <string name="titulo_aprende_palabras">Aprende\npalabras</string>
+    <string name="subtitulo_aprende_palabras">Conoce las palabras del día</string>
+    <string name="instrucciones_aprende_palabras">1. Mira y escucha: Aparecerá una palabra con una imagen. Escucha cómo se pronuncia y conoce su significado.\n2. Piensa y elige: Verás una frase, elige la palabra que complete mejor la oración.\n3. Juega con las sílabas: Completa, une u ordena las sílabas para formar la palabra.\n4. Descubre su significado: Lee la pregunta y elige la opción que explique qué significa la palabra.\n5. ¿Necesitas ayuda?: Haz clic en el Gusanito Sabio y recibirás una pista.\n6. ¡Sigue aprendiendo!: Al terminar, desbloquearás la palabra y podrás encontrarla en “El diccionario del gusanito” para repasarla.</string>
+    <string name="subtitulo_actividades">¡Selecciona la actividad que explorarás!</string>
+    <string name="ejercicios_practicos">Ejercicios prácticos</string>
+    <string name="relacionar_imagenes">Relacionar con imágenes</string>
+    <string name="pregunta_silabas">Completa las sílabas de la palabra que significa ‘fruto del bosque’:\nBA-____</string>
+    <string name="pregunta_significado">¿Cuál es el significado correcto de la palabra?\nA) Una cerca o muro de madera que sirve para separar un terreno o proteger una casa.\nB) Una expresión que usamos cuando queremos que alguien se mueva hacia un lugar.\nC) Una fruta pequeña, redonda y muy jugosa que crece en los arbustos del bosque.\nD) Un obstáculo que saltan los atletas en las carreras de velocidad.</string>
+    <string name="pista_gusano">¡No te dejes engañar por las cercas de madera o por el verbo ir!</string>
+    <string name="relaciona_instruccion">Relaciona la palabra con su imagen descriptiva</string>
+    <string name="subtitulo_diccionario">Diccionario del Gusanito\nNivel 5</string>
 </resources>

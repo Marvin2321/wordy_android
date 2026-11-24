@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/ivMapa"
+        android:layout_width="900dp"
+        android:layout_height="986dp"
+        android:contentDescription="@string/img_mapa"
+        android:scaleType="fitCenter"
+        android:src="@drawable/img_mapa_decoracion"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.258" />
+
+    <TextView
+        android:id="@+id/nivel5"
+        style="@style/WordyNivel"
+        android:layout_width="76dp"
+        android:layout_height="76dp"
+        android:background="@drawable/ic_estrella_nivel"
+        android:text="5"
+        android:textColor="@color/wordy_coral_dark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.585"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.314"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/nivel4"
+        style="@style/WordyNivel"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:background="@drawable/bg_nivel_morado"
+        android:text="4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.311"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.482"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/nivel3"
+        style="@style/WordyNivel"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:background="@drawable/bg_nivel_rosa"
+        android:text="3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.783"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.635"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/nivel2"
+        style="@style/WordyNivel"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:background="@drawable/bg_nivel_teal"
+        android:text="2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.282"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.748"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/nivel1"
+        style="@style/WordyNivel"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:background="@drawable/bg_nivel_naranja"
+        android:text="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.446"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.932"
+        tools:ignore="HardcodedText" />
+</androidx.constraintlayout.widget.ConstraintLayout>

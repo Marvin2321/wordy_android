@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/wordy_blue"
+    android:fitsSystemWindows="true"
+    tools:context=".CuentaCuentosActivity">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glCremaTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.06" />
+
+    <View
+        android:id="@+id/bgCrema"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_oval_cream"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/glCremaTop" />
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/header_wordy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTitulo"
+        style="@style/WordyTitulo"
+        android:layout_marginTop="4dp"
+        android:text="@string/titulo_cuenta_cuentos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header" />
+
+    <TextView
+        android:id="@+id/tvSubtitulo"
+        style="@style/WordySubtitulo"
+        android:layout_marginTop="10dp"
+        android:text="@string/subtitulo_cuenta_cuentos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitulo" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cardInstrucciones"
+        android:layout_width="363dp"
+        android:layout_height="369dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="14dp"
+        android:background="@drawable/bg_card"
+        android:paddingStart="22dp"
+        android:paddingTop="26dp"
+        android:paddingEnd="18dp"
+        android:paddingBottom="28dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSubtitulo">
+
+        <TextView
+            android:id="@+id/tvInstrucciones"
+            style="@style/WordyCuerpo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/instrucciones_cuenta_cuentos"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnJugar"
+            style="@style/WordyButton"
+            android:layout_width="130dp"
+            android:layout_height="69dp"
+            android:layout_marginTop="44dp"
+            android:background="@drawable/bg_btn_orange"
+            android:fontFamily="@font/fredoka_normal"
+            android:text="@string/jugar_ahora"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvInstrucciones" />
+
+        <ImageView
+            android:id="@+id/ivGusano"
+            android:layout_width="227dp"
+            android:layout_height="152dp"
+            android:layout_marginBottom="-34dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/img_gusano_lector"
+            android:src="@drawable/img_gusano_lector"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintWidth_percent="0.56" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include
+        android:id="@+id/footer"
+        layout="@layout/footer_home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

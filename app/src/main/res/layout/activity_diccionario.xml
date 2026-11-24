@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/wordy_blue"
+    android:fitsSystemWindows="true"
+    tools:context=".DiccionarioActivity"
+    tools:ignore="HardcodedText">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glCremaTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.06" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ovalContenedor"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_oval_cream"
+        android:clipToOutline="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/glCremaTop">
+
+        <TextView
+            android:id="@+id/tvTitulo"
+            style="@style/WordyTitulo"
+            android:layout_marginTop="22dp"
+            android:text="@string/titulo_aprende_palabras"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvSubtitulo"
+            style="@style/WordySubtitulo"
+            android:layout_marginTop="8dp"
+            android:text="@string/subtitulo_diccionario"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTitulo" />
+
+        <!-- Fondo celeste de la lista (empieza a media altura de los círculos) -->
+        <View
+            android:id="@+id/bgCieloLista"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/wordy_sky"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/llNiveles" />
+
+        <LinearLayout
+            android:id="@+id/llNiveles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/tvSubtitulo">
+
+            <TextView
+                android:id="@+id/nivelD1"
+                style="@style/WordyNivel"
+                android:layout_width="66dp"
+                android:layout_height="66dp"
+                android:background="@drawable/bg_nivel_naranja"
+                android:text="1" />
+
+            <TextView
+                android:id="@+id/nivelD2"
+                style="@style/WordyNivel"
+                android:layout_width="66dp"
+                android:layout_height="66dp"
+                android:layout_marginStart="6dp"
+                android:background="@drawable/bg_nivel_teal"
+                android:text="2" />
+
+            <TextView
+                android:id="@+id/nivelD3"
+                style="@style/WordyNivel"
+                android:layout_width="66dp"
+                android:layout_height="66dp"
+                android:layout_marginStart="6dp"
+                android:background="@drawable/bg_nivel_rosa"
+                android:text="3" />
+
+            <TextView
+                android:id="@+id/nivelD4"
+                style="@style/WordyNivel"
+                android:layout_width="66dp"
+                android:layout_height="66dp"
+                android:layout_marginStart="6dp"
+                android:background="@drawable/bg_nivel_morado"
+                android:text="4" />
+
+            <TextView
+                android:id="@+id/nivelD5"
+                style="@style/WordyNivel"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="6dp"
+                android:background="@drawable/bg_nivel_coral"
+                android:text="5"
+                android:textSize="22sp" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvPalabras"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:paddingStart="10dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="80dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/llNiveles" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/header_wordy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/footer"
+        layout="@layout/footer_home_regresar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

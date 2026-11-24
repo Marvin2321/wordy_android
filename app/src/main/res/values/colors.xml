@@ -20,4 +20,5 @@
     <color name="wordy_green_dark">#6E8A12</color>
     <color name="wordy_quote">#4A9AAB</color>
     <color name="wordy_shadow_gray">#D9D9E3</color>
+    <color name="wordy_card_gray">#E8EEF7</color>
 </resources>
