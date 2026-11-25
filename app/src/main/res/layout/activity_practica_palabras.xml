@@ -121,10 +121,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:justificationMode="inter_word"
-                android:text="@string/pregunta_significado"
-                android:textSize="14sp"
-                tools:targetApi="o" />
+                android:text="@string/pregunta_significado_titulo"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:id="@+id/llSignificados"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
 
             <!-- Burbuja de pista + gusanito -->
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -149,6 +153,7 @@
                         android:layout_width="52dp"
                         android:layout_height="52dp"
                         android:contentDescription="@null"
+                        android:id="@+id/ivPistaImg"
                         android:src="@drawable/img_rel_baya" />
 
                     <TextView
@@ -158,6 +163,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_weight="1"
                         android:text="@string/pista_gusano"
+                        android:id="@+id/tvPista"
                         android:textSize="12sp" />
                 </LinearLayout>
 

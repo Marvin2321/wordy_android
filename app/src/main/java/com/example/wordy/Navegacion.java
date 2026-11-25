@@ -3,9 +3,6 @@ package com.example.wordy;
 import android.app.Activity;
 import android.content.Intent;
 
-import androidx.appcompat.app.AlertDialog;
-
-/** Navegación común. El menú de hamburguesa es TEMPORAL, solo para saltar entre pantallas. */
 public final class Navegacion {
 
     private Navegacion() {}
@@ -17,22 +14,23 @@ public final class Navegacion {
         a.finish();
     }
 
-    public static void mostrarMenu(Activity a) {
-        String[] opciones = {"Inicio", "Cuenta cuentos", "Aprende palabras"};
-        new AlertDialog.Builder(a)
-                .setItems(opciones, (d, which) -> {
-                    switch (which) {
-                        case 0:
-                            irAHome(a);
-                            break;
-                        case 1:
-                            a.startActivity(new Intent(a, CuentaCuentosActivity.class));
-                            break;
-                        default:
-                            a.startActivity(new Intent(a, AprendePalabrasActivity.class));
-                            break;
-                    }
-                })
-                .show();
+    /** Botón "¡Continuar aventura!": abre la siguiente actividad pendiente. */
+    public static void continuarAventura(Activity a) {
+        JuegoManager juego = new JuegoManager(new JuegoLocal(a, SesionManager.usuarioId(a)));
+        Intent i;
+        int cuento = juego.siguienteNivelCuentos();
+        if (cuento > 0) {
+            i = new Intent(a, CuentoLecturaActivity.class);
+            i.putExtra(CuentoLecturaActivity.EXTRA_NIVEL, cuento);
+        } else {
+            int palabras = juego.siguienteNivelPalabras();
+            if (palabras > 0) {
+                i = new Intent(a, PracticaPalabrasActivity.class);
+                i.putExtra(PracticaPalabrasActivity.EXTRA_NIVEL, palabras);
+            } else {
+                i = new Intent(a, AprendePalabrasActivity.class);
+            }
+        }
+        a.startActivity(i);
     }
 }

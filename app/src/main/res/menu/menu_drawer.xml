@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_inicio" android:icon="@drawable/ic_home" android:title="@string/nav_inicio" />
+    <item android:id="@+id/menu_cuentos" android:icon="@drawable/ic_libro" android:title="@string/nav_cuentos" />
+    <item android:id="@+id/menu_palabras" android:icon="@drawable/ic_letras" android:title="@string/nav_palabras" />
+    <item android:id="@+id/menu_diccionario" android:icon="@drawable/ic_diccionario" android:title="@string/nav_diccionario" />
+    <item android:id="@+id/menu_cerrar_sesion" android:icon="@drawable/ic_cerrar_sesion" android:title="@string/nav_cerrar_sesion" />
+</menu>

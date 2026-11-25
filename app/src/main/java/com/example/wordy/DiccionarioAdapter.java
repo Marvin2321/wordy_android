@@ -1,6 +1,7 @@
 package com.example.wordy;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -8,27 +9,51 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wordy.databinding.ItemPalabraDiccionarioBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DiccionarioAdapter extends RecyclerView.Adapter<DiccionarioAdapter.VH> {
 
-    /** Modelo mínimo; cuando llegue la lógica se reemplaza por los datos reales. */
-    public static class Item {
-        final String palabra;
-        final String definicion;
-        final boolean conEnlace; // true = tarjeta gris con ícono de enlace
+    public interface OnPalabraClick {
+        void onClick(String idPalabra);
+    }
 
-        public Item(String palabra, String definicion, boolean conEnlace) {
+    private static class Item {
+        final String id, palabra, definicion;
+        final boolean conImagen, vacio;
+
+        Item(String id, String palabra, String definicion, boolean conImagen, boolean vacio) {
+            this.id = id;
             this.palabra = palabra;
             this.definicion = definicion;
-            this.conEnlace = conEnlace;
+            this.conImagen = conImagen;
+            this.vacio = vacio;
         }
     }
 
-    private final List<Item> items;
+    private final List<Item> items = new ArrayList<>();
+    private final OnPalabraClick listener;
 
-    public DiccionarioAdapter(List<Item> items) {
-        this.items = items;
+    public DiccionarioAdapter(OnPalabraClick listener) {
+        this.listener = listener;
+    }
+
+    /** Muestra las palabras; si no hay ninguna, un mensaje de "aún no hay palabras". */
+    public void setPalabras(List<Palabra> palabras) {
+        items.clear();
+        for (Palabra p : palabras) {
+            items.add(new Item(p.id, p.palabra, p.significado + " Ejemplo: " + p.ejemplo,
+                    p.imagen != 0, false));
+        }
+        if (palabras.isEmpty()) {
+            items.add(new Item(null, "¡Aún no hay palabras!",
+                    "Aún no has desbloqueado palabras en este nivel. ¡Sigue jugando!", false, true));
+        }
+        notifyDataSetChanged();
+    }
+
+    public boolean esVacio(int posicion) {
+        return posicion >= 0 && posicion < items.size() && items.get(posicion).vacio;
     }
 
     @NonNull
@@ -44,9 +69,17 @@ public class DiccionarioAdapter extends RecyclerView.Adapter<DiccionarioAdapter.
         h.b.tvPalabra.setText(it.palabra);
         h.b.tvDefinicion.setText(it.definicion);
         h.b.getRoot().setBackgroundResource(
-                it.conEnlace ? R.drawable.bg_card_gris : R.drawable.bg_card_white);
-        h.b.ivIcono.setImageResource(
-                it.conEnlace ? R.drawable.ic_enlace : R.drawable.ic_toque);
+                it.conImagen ? R.drawable.bg_card_gris : R.drawable.bg_card_white);
+
+        if (it.vacio) {
+            h.b.ivIcono.setVisibility(View.GONE);
+            h.b.getRoot().setOnClickListener(null);
+            h.b.getRoot().setClickable(false);
+        } else {
+            h.b.ivIcono.setVisibility(View.VISIBLE);
+            h.b.ivIcono.setImageResource(it.conImagen ? R.drawable.ic_enlace : R.drawable.ic_toque);
+            h.b.getRoot().setOnClickListener(v -> listener.onClick(it.id));
+        }
     }
 
     @Override

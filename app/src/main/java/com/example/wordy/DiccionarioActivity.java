@@ -1,18 +1,19 @@
 package com.example.wordy;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.example.wordy.databinding.ActivityDiccionarioBinding;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class DiccionarioActivity extends AppCompatActivity {
+public class DiccionarioActivity extends BaseWordyActivity {
 
     private ActivityDiccionarioBinding binding;
+    private DiccionarioAdapter adapter;
+    private TextView[] circulos;
+    private int nivelSel = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,29 +21,54 @@ public class DiccionarioActivity extends AppCompatActivity {
         binding = ActivityDiccionarioBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.header.btnMenu.setOnClickListener(v -> Navegacion.mostrarMenu(this));
-        binding.footer.btnHome.setOnClickListener(v -> Navegacion.irAHome(this));
-        binding.footer.btnRegresar.setOnClickListener(v -> finish());
+        circulos = new TextView[]{binding.nivelD1, binding.nivelD2, binding.nivelD3,
+                binding.nivelD4, binding.nivelD5};
+        for (int i = 0; i < circulos.length; i++) {
+            final int nivel = i + 1;
+            circulos[i].setOnClickListener(v -> mostrarNivel(nivel));
+        }
 
-        binding.rvPalabras.setLayoutManager(new GridLayoutManager(this, 2));
-        binding.rvPalabras.setAdapter(new DiccionarioAdapter(datosDeEjemplo()));
+        adapter = new DiccionarioAdapter(this::repasar);
+        GridLayoutManager lm = new GridLayoutManager(this, 2);
+        lm.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                return adapter.esVacio(position) ? 2 : 1;
+            }
+        });
+        binding.rvPalabras.setLayoutManager(lm);
+        binding.rvPalabras.setAdapter(adapter);
+
+        mostrarNivel(nivelInicial());
     }
 
-    /** Datos de muestra para ver el diseño. Luego vendrán de la base de datos. */
-    private List<DiccionarioAdapter.Item> datosDeEjemplo() {
-        List<DiccionarioAdapter.Item> l = new ArrayList<>();
-        l.add(new DiccionarioAdapter.Item("Gazapo",
-                "Se dice de un conejito bebé recién nacido, o también de un error pequeño y divertido que alguien comete sin querer al hablar o escribir. Ejemplo: El abuelo soltó una carcajada cuando cometió un pequeño gazapo al contar la historia al revés.", true));
-        l.add(new DiccionarioAdapter.Item("Pueril",
-                "Es todo aquello que es propio de los niños pequeños o que es muy infantil. Ejemplo: Comer con las manos y llenarse la cara de pastel es un comportamiento pueril.", false));
-        l.add(new DiccionarioAdapter.Item("Ajeno",
-                "Es todo aquello que no es tuyo, sino que le pertenece a otra persona, a un amigo o a un vecino. Ejemplo: El ratoncito sabía que no debía tomar un trozo de queso ajeno sin pedirle permiso primero a su mamá.", true));
-        l.add(new DiccionarioAdapter.Item("Haber",
-                "Es una palabra que usamos para explicar que algo existe, que algo ocurrió o que hay cosas guardadas en algún lugar. Ejemplo: Debajo de la cama de los duendes debe haber muchos juguetes escondidos listos para la Navidad.", false));
-        l.add(new DiccionarioAdapter.Item("Fenicio",
-                "Se refiere a las personas de un pueblo muy antiguo que eran grandes marineros y comerciantes.", false));
-        l.add(new DiccionarioAdapter.Item("Baya",
-                "Es una fruta pequeña, redonda y muy jugosa que crece en los arbustos del bosque.", false));
-        return l;
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (nivelSel > 0) mostrarNivel(nivelSel);   // por si se desbloquearon palabras
+    }
+
+    /** El nivel más alto que ya tiene palabras desbloqueadas (o el 1). */
+    private int nivelInicial() {
+        for (int n = JuegoManager.NIVELES; n >= 1; n--) {
+            if (!juego().palabrasDesbloqueadas(n).isEmpty()) return n;
+        }
+        return 1;
+    }
+
+    private void mostrarNivel(int nivel) {
+        nivelSel = nivel;
+        binding.tvSubtitulo.setText(getString(R.string.subtitulo_diccionario_fmt, nivel));
+        for (int i = 0; i < circulos.length; i++) {
+            circulos[i].setAlpha(i + 1 == nivel ? 1f : 0.55f);
+        }
+        adapter.setPalabras(juego().palabrasDesbloqueadas(nivel));
+    }
+
+    /** "Repasar": abre la actividad de 4 opciones solo con esa palabra. */
+    private void repasar(String idPalabra) {
+        Intent i = new Intent(this, PracticaPalabrasActivity.class);
+        i.putExtra(PracticaPalabrasActivity.EXTRA_REPASO_ID, idPalabra);
+        startActivity(i);
     }
 }

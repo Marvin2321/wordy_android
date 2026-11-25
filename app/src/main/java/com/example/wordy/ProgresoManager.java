@@ -22,11 +22,16 @@ public class ProgresoManager {
         return u;
     }
 
+    /** @param correcta true si la hizo bien (suma 1 estrella) */
+    public Usuario registrarActividad(boolean correcta) {
+        return registrarActividad(correcta ? 1 : 0);
+    }
+
     /**
      * Llamar al terminar una actividad.
-     * @param correcta true si la hizo bien (suma 1 estrella)
+     * @param estrellasGanadas estrellas nuevas a sumar (puede ser 0: igual cuenta para la racha)
      */
-    public Usuario registrarActividad(boolean correcta) {
+    public Usuario registrarActividad(int estrellasGanadas) {
         Usuario u = cargar();
         long hoy = diaActual();
 
@@ -34,7 +39,7 @@ public class ProgresoManager {
             u.racha = (u.ultimoDia == hoy - 1) ? u.racha + 1 : 1;
             u.ultimoDia = hoy;
         }
-        if (correcta) u.estrellas++;
+        u.estrellas += Math.max(0, estrellasGanadas);
 
         repo.guardar(u);
         return u;

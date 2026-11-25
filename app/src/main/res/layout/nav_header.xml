@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/wordy_cream"
+    android:orientation="vertical"
+    android:paddingStart="20dp"
+    android:paddingTop="28dp"
+    android:paddingEnd="20dp"
+    android:paddingBottom="20dp">
+
+    <FrameLayout
+        android:layout_width="180dp"
+        android:layout_height="66dp">
+
+        <ImageView
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-126dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/logo_wordy"
+            android:src="@drawable/logo_wordy" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tvNavNombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/fredoka_normal"
+        android:textColor="@color/wordy_navy"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvNavProgreso"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:fontFamily="@font/varela_normal"
+        android:textColor="@color/wordy_navy"
+        android:textSize="13sp" />
+</LinearLayout>

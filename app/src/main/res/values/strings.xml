@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name">Wordy</string>
     <string name="logo_wordy">Logo de Wordy</string>
     <string name="bienvenido">¡Bienvenido a Wordy!</string>
@@ -28,6 +29,24 @@
     <string name="img_star">Estrellas acumuladas</string>
     <string name="img_gusano_lector">Gusanito leyendo un libro</string>
     <string name="img_cerrar_sesion">Cerrar sesión</string>
+
+    <!-- ===== Drawer ===== -->
+    <string name="nav_inicio">Inicio</string>
+    <string name="nav_cuentos">Cuenta cuentos</string>
+    <string name="nav_palabras">Aprende palabras</string>
+    <string name="nav_diccionario">Mis palabras</string>
+    <string name="nav_cerrar_sesion">Cerrar sesión</string>
+    <string name="nav_hola">¡Hola, %1$s!</string>
+    <string name="nav_hola_anonimo">¡Hola, explorador!</string>
+    <string name="nav_progreso">%1$d días de racha · %2$d estrellas</string>
+
+    <!-- ===== Lógica ===== -->
+    <string name="subtitulo_nivel_cuento">Nivel %1$d - %2$s</string>
+    <string name="pregunta_silabas_fmt">Completa las sílabas de la palabra que significa ‘%1$s’:\n%2$s</string>
+    <string name="pregunta_significado_titulo">¿Cuál es el significado correcto de la palabra?</string>
+    <string name="pista_inicial">Toca al Gusanito Sabio si necesitas una pista</string>
+    <string name="pista_ejemplo">Pista: %1$s</string>
+    <string name="subtitulo_diccionario_fmt">Diccionario del Gusanito\nNivel %1$d</string>
 
     <string-array name="refranes">
         <item>No dejes para mañana lo que puedes hacer hoy</item>

@@ -24,4 +24,7 @@ public final class SesionManager {
     public static void cerrar(Context c) {
         prefs(c).edit().clear().apply();
     }
+    public static String nombre(Context c) {
+        return prefs(c).getString("nombre", "");
+    }
 }

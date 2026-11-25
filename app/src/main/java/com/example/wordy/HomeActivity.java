@@ -54,13 +54,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void configurarBotones() {
-        binding.btnContinuar.setOnClickListener(v -> {
-            // TODO: abrir la actividad/juego. Al terminar, llamar:
-            //   progreso.registrarActividad(correcta);
-            //   mostrarProgreso(...)
-            Intent intent = new Intent(this, CuentaCuentosActivity.class);
-            startActivity(intent);
-        });
+        binding.btnContinuar.setOnClickListener(v -> Navegacion.continuarAventura(this));
 
         binding.btnCerrarSesion.setOnClickListener(v -> {
             SesionManager.cerrar(this);
