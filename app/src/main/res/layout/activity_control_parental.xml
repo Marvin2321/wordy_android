@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/wordy_blue"
+    android:fitsSystemWindows="true"
+    tools:context=".ControlParentalActivity"
+    tools:ignore="HardcodedText">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glCremaTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.07" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ovalContenedor"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_oval_cream"
+        android:clipToOutline="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/glCremaTop">
+
+        <TextView
+            android:id="@+id/tvTituloControl"
+            style="@style/WordyTitulo"
+            android:layout_marginTop="28dp"
+            android:gravity="center"
+            android:lineSpacingExtra="-4dp"
+            android:text="Control\nparental"
+            android:textSize="32sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvSubtituloControl"
+            style="@style/WordySubtitulo"
+            android:layout_marginTop="6dp"
+            android:paddingHorizontal="16dp"
+            android:text="Acompaña en su trayectoria a tu pequeño"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTituloControl" />
+
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:fillViewport="true"
+            android:paddingBottom="76dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvSubtituloControl">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="24dp"
+                android:paddingTop="14dp"
+                android:paddingBottom="16dp">
+
+                <!-- ESTADO 1: FORMULARIO VINCULAR -->
+                <LinearLayout
+                    android:id="@+id/layoutVincular"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <ImageView
+                        android:id="@+id/ivAvatarVincular"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:background="@drawable/bg_oval_cream"
+                        android:contentDescription="Avatar de perfil"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_avatar" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-14dp"
+                        android:background="@drawable/bg_card_white"
+                        android:backgroundTint="#FFE885"
+                        android:elevation="4dp"
+                        android:orientation="vertical"
+                        android:paddingStart="18dp"
+                        android:paddingTop="24dp"
+                        android:paddingEnd="18dp"
+                        android:paddingBottom="24dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/fredoka_normal"
+                            android:gravity="center"
+                            android:text="¿Aún no has vinculado a tu hijo?\nIngresa sus datos"
+                            android:textColor="#17233B"
+                            android:textSize="14sp" />
+
+                        <EditText
+                            android:id="@+id/etUsuarioNino"
+                            android:layout_width="match_parent"
+                            android:layout_height="46dp"
+                            android:layout_marginTop="14dp"
+                            android:background="@drawable/bg_field_white"
+                            android:fontFamily="@font/varela_normal"
+                            android:hint="USUARIO DEL NIÑO"
+                            android:inputType="text"
+                            android:paddingHorizontal="14dp"
+                            android:textColor="#222222"
+                            android:textColorHint="#7A7A7A"
+                            android:textSize="12sp" />
+
+                        <EditText
+                            android:id="@+id/etContrasenaNino"
+                            android:layout_width="match_parent"
+                            android:layout_height="46dp"
+                            android:layout_marginTop="12dp"
+                            android:background="@drawable/bg_field_white"
+                            android:fontFamily="@font/varela_normal"
+                            android:hint="CONTRASEÑA DEL NIÑO"
+                            android:inputType="textPassword"
+                            android:paddingHorizontal="14dp"
+                            android:textColor="#222222"
+                            android:textColorHint="#7A7A7A"
+                            android:textSize="12sp" />
+
+                        <EditText
+                            android:id="@+id/etCorreoNino"
+                            android:layout_width="match_parent"
+                            android:layout_height="46dp"
+                            android:layout_marginTop="12dp"
+                            android:background="@drawable/bg_field_white"
+                            android:fontFamily="@font/varela_normal"
+                            android:hint="CORREO VINCULADO AL NIÑO"
+                            android:inputType="textEmailAddress"
+                            android:paddingHorizontal="14dp"
+                            android:textColor="#222222"
+                            android:textColorHint="#7A7A7A"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/btnVincular"
+                        android:layout_width="140dp"
+                        android:layout_height="46dp"
+                        android:layout_marginTop="18dp"
+                        android:background="@drawable/bg_btn_purple"
+                        android:elevation="4dp"
+                        android:fontFamily="@font/fredoka_normal"
+                        android:text="Vincular"
+                        android:textAllCaps="false"
+                        android:textColor="#17233B"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <!-- ESTADO 2: RESUMEN NIÑO VINCULADO -->
+                <LinearLayout
+                    android:id="@+id/layoutResumenVinculado"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <!-- Badge naranja de niño vinculado -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_btn_orange"
+                        android:elevation="3dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="10dp">
+
+                        <ImageView
+                            android:layout_width="44dp"
+                            android:layout_height="44dp"
+                            android:background="@drawable/bg_oval_cream"
+                            android:contentDescription="Avatar del niño"
+                            android:padding="6dp"
+                            android:src="@drawable/ic_avatar" />
+
+                        <TextView
+                            android:id="@+id/tvNinoVinculado"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/fredoka_normal"
+                            android:text="Niño vinculado:\nAnton Aguilar Zamora"
+                            android:textColor="#17233B"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <!-- Tarjeta Cuenta Cuentos -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:background="@drawable/bg_card_white"
+                        android:elevation="4dp"
+                        android:orientation="vertical"
+                        android:padding="14dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/fredoka_normal"
+                            android:gravity="center"
+                            android:text="Cuenta Cuentos"
+                            android:textColor="#17233B"
+                            android:textSize="16sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/bg_card_gris"
+                                android:gravity="center"
+                                android:orientation="horizontal"
+                                android:paddingHorizontal="10dp"
+                                android:paddingVertical="8dp">
+
+                                <TextView
+                                    android:id="@+id/tvEstrellasCuentos"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/fredoka_normal"
+                                    android:text="6"
+                                    android:textColor="#17233B"
+                                    android:textSize="28sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="6dp"
+                                    android:fontFamily="@font/fredoka_normal"
+                                    android:text="★\nEstrellas\nAcumuladas"
+                                    android:textColor="#17233B"
+                                    android:textSize="10sp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/tvIntentosCuentos"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/fredoka_normal"
+                                    android:text="Número de Intentos:\n5"
+                                    android:textColor="#17233B"
+                                    android:textSize="12sp" />
+
+                                <TextView
+                                    android:id="@+id/tvAciertosCuentos"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:fontFamily="@font/fredoka_normal"
+                                    android:text="Número de aciertos:\n2"
+                                    android:textColor="#17233B"
+                                    android:textSize="12sp" />
+
+                                <TextView
+                                    android:id="@+id/tvNivelCuentos"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:fontFamily="@font/fredoka_normal"
+                                    android:text="Nivel:\n1"
+                                    android:textColor="#17233B"
+                                    android:textSize="12sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- Tarjeta Aprende Palabras -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:background="@drawable/bg_card_white"
+                        android:elevation="4dp"
+                        android:orientation="vertical"
+                        android:padding="14dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/fredoka_normal"
+                            android:gravity="center"
+                            android:text="Aprende Palabras"
+                            android:textColor="#17233B"
+                            android:textSize="16sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/bg_card_gris"
+                                android:gravity="center"
+                                android:orientation="horizontal"
+                                android:paddingHorizontal="10dp"
+                                android:paddingVertical="8dp">
+
+                                <TextView
+                                    android:id="@+id/tvEstrellasPalabras"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/fredoka_normal"
+                                    android:text="7"
+                                    android:textColor="#17233B"
+                                    android:textSize="28sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="6dp"
+                                    android:fontFamily="@font/fredoka_normal"
+                                    android:text="★\nEstrellas\nAcumuladas"
+                                    android:textColor="#17233B"
+                                    android:textSize="10sp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/tvIntentosPalabras"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/fredoka_normal"
+                                    android:text="Número de intentos:\n105"
+                                    android:textColor="#17233B"
+                                    android:textSize="12sp" />
+
+                                <TextView
+                                    android:id="@+id/tvAciertosPalabras"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:fontFamily="@font/fredoka_normal"
+                                    android:text="Número de aciertos:\n48"
+                                    android:textColor="#17233B"
+                                    android:textSize="12sp" />
+
+                                <TextView
+                                    android:id="@+id/tvNivelPalabras"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:fontFamily="@font/fredoka_normal"
+                                    android:text="Nivel:\n2"
+                                    android:textColor="#17233B"
+                                    android:textSize="12sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </FrameLayout>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/header_wordy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/footer"
+        layout="@layout/footer_home_regresar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

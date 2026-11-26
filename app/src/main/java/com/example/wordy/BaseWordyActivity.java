@@ -2,6 +2,7 @@ package com.example.wordy;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -15,8 +16,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.navigation.NavigationView;
 
 /**
- * Base de todas las pantallas del juego: envuelve el contenido en un NavigationDrawer
- * y conecta solo el menú (btnMenu), el home (btnHome) y "Regresar" (btnRegresar).
+ - Base de todas las pantallas del juego: envuelve el contenido en un NavigationDrawer
+ - y conecta solo el menú (btnMenu), el home (btnHome) y "Regresar" (btnRegresar).
  */
 public abstract class BaseWordyActivity extends AppCompatActivity {
 
@@ -66,6 +67,7 @@ public abstract class BaseWordyActivity extends AppCompatActivity {
             @Override
             public void onDrawerOpened(View drawerView) {
                 cerrarDrawer.setEnabled(true);
+                actualizarMenuPorRol();
                 actualizarEncabezado();
             }
 
@@ -83,13 +85,23 @@ public abstract class BaseWordyActivity extends AppCompatActivity {
             else if (id == R.id.menu_cuentos) ir(CuentaCuentosActivity.class);
             else if (id == R.id.menu_palabras) ir(AprendePalabrasActivity.class);
             else if (id == R.id.menu_diccionario) ir(DiccionarioActivity.class);
+            else if (id == R.id.menu_control_parental) ir(ControlParentalActivity.class);
             else if (id == R.id.menu_cerrar_sesion) {
                 SesionManager.cerrar(this);
                 irALogin();
             }
             return true;
         });
+
+        actualizarMenuPorRol();
         actualizarEncabezado();
+    }
+
+    private void actualizarMenuPorRol() {
+        MenuItem itemParental = navView.getMenu().findItem(R.id.menu_control_parental);
+        if (itemParental != null) {
+            itemParental.setVisible(SesionManager.esTutor(this));
+        }
     }
 
     private void actualizarEncabezado() {
