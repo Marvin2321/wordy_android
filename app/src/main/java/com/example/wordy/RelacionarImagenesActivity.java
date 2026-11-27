@@ -1,161 +1,304 @@
 package com.example.wordy;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 
 import com.example.wordy.databinding.ActivityRelacionarImagenesBinding;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
+/**
+ * Relacionar con imágenes (CU 7). MISMA lógica que arrancarImagenes() de palabrasModulo.js:
+ *   GET  /api/palabras/nivel/{n}?actividad=imagenes   imágenes revueltas + palabras revueltas (sin decir cuál va)
+ *   POST /api/palabras/validar {idUsuario, idEjercicio, respuesta, modo:"juego"}  -> correcta / respuestaCorrecta
+ *   POST /api/palabras/finalizar  al relacionar todas.
+ * Toca una palabra y luego su imagen (o al revés).
+ */
 public class RelacionarImagenesActivity extends BaseWordyActivity {
 
-    private static final String[] NOMBRES = {"Baya", "Ajeno", "Fenicio", "Pueril", "Gazapo"};
     private static final int[] FONDOS = {
             R.drawable.bg_field_orange, R.drawable.bg_field_teal, R.drawable.bg_field_purple,
             R.drawable.bg_field_pink, R.drawable.bg_field_coral};
 
-    private ActivityRelacionarImagenesBinding binding;
-    private ImageView[] imagenes;   // imagen i corresponde a NOMBRES[i]
-    private TextView[] chips;       // cada chip lleva en su tag el índice de la palabra
-    private Palabra[] palabras;
+    /** Una imagen del tablero (casilla). */
+    private static class Casilla {
+        int idEjercicio;
+        View vista;
+        TextView etiqueta;
+        boolean resuelta = false;
+        int intentos = 0;
+    }
 
-    private boolean[] resuelta;
-    private int[] errores;
-    private int chipSel = -1;
-    private int imgSel = -1;
-    private int resueltas = 0;
-    private int estrellasRonda = 0;
+    private ActivityRelacionarImagenesBinding binding;
+    private final List<Casilla> casillas = new ArrayList<>();
+    private final List<TextView> chips = new ArrayList<>();
+    private final List<String> nuevas = new ArrayList<>();
+    private int nivel = 1;
+    private String ticket = "";
+    private int aciertos = 0;
+    private Casilla casillaSel;
+    private TextView chipSel;
+    private boolean enviando = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (sinSesion()) return;
         binding = ActivityRelacionarImagenesBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        imagenes = new ImageView[]{binding.ivBaya, binding.ivAjeno, binding.ivFenicio,
-                binding.ivPueril, binding.ivGazapo};
-        chips = new TextView[]{binding.palabraBaya, binding.palabraGazapo, binding.palabraAjeno,
-                binding.palabraPueril, binding.palabraFenicio};
-        palabras = new Palabra[NOMBRES.length];
-        for (int i = 0; i < NOMBRES.length; i++) palabras[i] = PalabrasData.porNombre(NOMBRES[i]);
-
+        nivel = getIntent().getIntExtra(PracticaPalabrasActivity.EXTRA_NIVEL, 1);
         binding.btnDiccionario.getRoot().setOnClickListener(v ->
-                startActivity(new android.content.Intent(this, DiccionarioActivity.class)));
+                startActivity(new Intent(this, DiccionarioActivity.class)));
         binding.footer.btnRevisar.setOnClickListener(v ->
-                Toast.makeText(this, "Llevas " + resueltas + " de " + NOMBRES.length
-                        + " palabras relacionadas", Toast.LENGTH_SHORT).show());
-
-        iniciarRonda();
+                Toast.makeText(this, "Llevas " + resueltas() + " de " + casillas.size()
+                        + " imágenes relacionadas", Toast.LENGTH_SHORT).show());
+        cargar();
     }
 
-    private void iniciarRonda() {
-        resueltas = 0;
-        estrellasRonda = 0;
-        chipSel = -1;
-        imgSel = -1;
-        resuelta = new boolean[NOMBRES.length];
-        errores = new int[NOMBRES.length];
+    private void cargar() {
+        ApiClient.get("palabras/nivel/" + nivel + "?actividad=imagenes&idUsuario=" + ApiClient.q(idUsuario()),
+                new ApiClient.Respuesta() {
+                    @Override
+                    public void onExito(JSONObject json) {
+                        if (cerrada()) return;
+                        JSONArray imagenes = json.optJSONArray("imagenes");
+                        if (!json.optBoolean("ok", false) || imagenes == null || imagenes.length() == 0) {
+                            mensaje("Este nivel no tiene imágenes todavía.");
+                            return;
+                        }
+                        ticket = ApiClient.txt(json, "ticket");
+                        String enun = ApiClient.txt(json, "enunciado");
+                        if (!enun.isEmpty()) binding.tvInstruccion.setText(enun);
+                        String avisoApi = ApiClient.txt(json, "aviso");
+                        if (!avisoApi.isEmpty()) aviso(avisoApi);
+                        armarTablero(imagenes, json.optJSONArray("opciones"));
+                        mensaje("Toca una palabra y luego su imagen.");
+                    }
 
-        List<Integer> orden = new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4));
-        Collections.shuffle(orden);
+                    @Override
+                    public void onError(String mensaje) {
+                        if (cerrada()) return;
+                        mensaje(mensaje);
+                        aviso(mensaje);
+                    }
+                });
+    }
 
-        for (int i = 0; i < NOMBRES.length; i++) {
-            imagenes[i].setAlpha(1f);
-            imagenes[i].setScaleX(1f);
-            imagenes[i].setScaleY(1f);
-            imagenes[i].setEnabled(true);
-            final int ii = i;
-            imagenes[i].setOnClickListener(v -> tocarImagen(ii));
+    private void mensaje(String t) {
+        binding.tvMensaje.setText(t);
+    }
 
-            chips[i].setText(palabras[orden.get(i)].palabra);
-            chips[i].setTag(orden.get(i));
-            chips[i].setBackgroundResource(FONDOS[i]);
-            chips[i].setScaleX(1f);
-            chips[i].setScaleY(1f);
-            chips[i].setEnabled(true);
-            final int ci = i;
-            chips[i].setOnClickListener(v -> tocarChip(ci));
+    // ================================================================ TABLERO
+    private GridLayout.LayoutParams celda(int alto) {
+        GridLayout.LayoutParams lp = new GridLayout.LayoutParams(
+                GridLayout.spec(GridLayout.UNDEFINED), GridLayout.spec(GridLayout.UNDEFINED, 1f));
+        lp.width = 0;
+        lp.height = alto;
+        lp.setMargins(dp(5), dp(5), dp(5), dp(5));
+        return lp;
+    }
+
+    private void armarTablero(JSONArray imagenes, JSONArray opciones) {
+        binding.glImagenes.removeAllViews();
+        binding.glPalabras.removeAllViews();
+        casillas.clear();
+        chips.clear();
+
+        for (int k = 0; k < imagenes.length(); k++) {
+            JSONObject im = imagenes.optJSONObject(k);
+            Casilla c = new Casilla();
+            c.idEjercicio = im.optInt("idEjercicio");
+
+            LinearLayout caja = new LinearLayout(this);
+            caja.setOrientation(LinearLayout.VERTICAL);
+            caja.setGravity(Gravity.CENTER_HORIZONTAL);
+
+            FrameLayout marco = new FrameLayout(this);
+            marco.setBackgroundResource(R.drawable.bg_card_white);
+            TextView emoji = new TextView(this);
+            emoji.setText(ApiClient.txt(im, "emoji"));
+            emoji.setTextSize(44);
+            emoji.setGravity(Gravity.CENTER);
+            ImageView iv = new ImageView(this);
+            iv.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            iv.setContentDescription("Imagen " + (k + 1));
+            marco.addView(emoji, new FrameLayout.LayoutParams(-1, -1));
+            marco.addView(iv, new FrameLayout.LayoutParams(-1, -1));
+            caja.addView(marco, new LinearLayout.LayoutParams(-1, dp(92)));
+            ImagenUrl.cargar(iv, ApiClient.txt(im, "imagen"), 0);   // sin imagen en la BD: se ve el emoji
+
+            TextView etiqueta = new TextView(this);
+            etiqueta.setText("?");
+            etiqueta.setGravity(Gravity.CENTER);
+            etiqueta.setTextColor(ContextCompat.getColor(this, R.color.wordy_navy));
+            etiqueta.setTextSize(12);
+            etiqueta.setTypeface(androidx.core.content.res.ResourcesCompat.getFont(this, R.font.varela_normal),
+                    android.graphics.Typeface.BOLD);
+            caja.addView(etiqueta, new LinearLayout.LayoutParams(-1, -2));
+
+            c.vista = caja;
+            c.etiqueta = etiqueta;
+            caja.setOnClickListener(v -> tocarCasilla(c));
+            binding.glImagenes.addView(caja, celda(GridLayout.LayoutParams.WRAP_CONTENT));
+            casillas.add(c);
         }
-    }
 
-    private void tocarChip(int c) {
-        if (!chips[c].isEnabled()) return;
-        if (chipSel >= 0) escala(chips[chipSel], 1f);
-        chipSel = c;
-        escala(chips[c], 1.1f);
-        evaluar();
-    }
-
-    private void tocarImagen(int i) {
-        if (!imagenes[i].isEnabled()) return;
-        if (imgSel >= 0) escala(imagenes[imgSel], 1f);
-        imgSel = i;
-        escala(imagenes[i], 1.1f);
-        evaluar();
+        for (int k = 0; opciones != null && k < opciones.length(); k++) {
+            TextView chip = (TextView) getLayoutInflater().inflate(R.layout.item_opcion, binding.glPalabras, false);
+            chip.setText(opciones.optString(k));
+            chip.setBackgroundResource(FONDOS[k % FONDOS.length]);
+            chip.setOnClickListener(v -> tocarChip(chip));
+            binding.glPalabras.addView(chip, celda(dp(40)));
+            chips.add(chip);
+        }
     }
 
     private void escala(View v, float e) {
         v.animate().scaleX(e).scaleY(e).setDuration(120).start();
     }
 
-    private void evaluar() {
-        if (chipSel < 0 || imgSel < 0) return;
-
-        TextView chip = chips[chipSel];
-        ImageView img = imagenes[imgSel];
-        int palabraDelChip = (Integer) chip.getTag();
-
-        if (palabraDelChip == imgSel) {
-            resuelta[imgSel] = true;
-            resueltas++;
-            chip.setBackgroundResource(R.drawable.bg_field_green);
-            chip.setEnabled(false);
-            img.setAlpha(0.35f);
-            img.setEnabled(false);
-            escala(chip, 1f);
-            escala(img, 1f);
-            Feedback.acierto(chip);
-
-            Palabra p = palabras[palabraDelChip];
-            if (!juego().palabraDesbloqueada(p.id)) {
-                juego().desbloquearPalabra(p.id);
-                if (errores[palabraDelChip] == 0) estrellasRonda++;
-            }
-            chipSel = -1;
-            imgSel = -1;
-            if (resueltas == NOMBRES.length) terminarRonda();
-        } else {
-            errores[palabraDelChip]++;
-            Feedback.error(chip);
-            Feedback.error(img);
-            Toast.makeText(this, "Ese no es, ¡inténtalo de nuevo!", Toast.LENGTH_SHORT).show();
-            escala(chip, 1f);
-            escala(img, 1f);
-            chipSel = -1;
-            imgSel = -1;
-        }
+    private void tocarChip(TextView chip) {
+        if (enviando || !chip.isEnabled()) return;
+        if (chipSel != null) escala(chipSel, 1f);
+        chipSel = chip;
+        escala(chip, 1.1f);
+        intentar();
     }
 
-    private void terminarRonda() {
-        progreso().registrarActividad(estrellasRonda);
-        String msg = "¡Relacionaste todas las palabras!"
-                + (estrellasRonda > 0 ? "\n\n¡Ganaste +" + estrellasRonda
-                + (estrellasRonda == 1 ? " estrella!" : " estrellas!") : "")
-                + "\nLas palabras nuevas están en “Mis palabras”.";
+    private void tocarCasilla(Casilla c) {
+        if (enviando || c.resuelta) return;
+        if (casillaSel != null) escala(casillaSel.vista, 1f);
+        casillaSel = c;
+        escala(c.vista, 1.08f);
+        intentar();
+    }
+
+    // ================================================================ VALIDAR
+    private void intentar() {
+        if (chipSel == null || casillaSel == null) return;
+        final Casilla c = casillaSel;
+        final TextView chip = chipSel;
+        final String texto = chip.getText().toString();
+
+        JSONObject cuerpo = new JSONObject();
+        try {
+            cuerpo.put("idUsuario", idUsuario());
+            cuerpo.put("idEjercicio", c.idEjercicio);
+            cuerpo.put("respuesta", texto);
+            cuerpo.put("modo", "juego");
+        } catch (JSONException e) {
+            return;
+        }
+        enviando = true;
+        ApiClient.post("palabras/validar", cuerpo, new ApiClient.Respuesta() {
+            @Override
+            public void onExito(JSONObject json) {
+                enviando = false;
+                if (cerrada()) return;
+                escala(chip, 1f);
+                escala(c.vista, 1f);
+                chipSel = null;
+                casillaSel = null;
+                c.intentos++;
+                if (json.optBoolean("correcta", false)) {
+                    if (c.intentos == 1) aciertos++;
+                    String palabra = ApiClient.txt(json, "palabra");
+                    if (json.optBoolean("desbloqueada", false) && !palabra.isEmpty() && !nuevas.contains(palabra)) {
+                        nuevas.add(palabra);
+                    }
+                    c.resuelta = true;
+                    c.etiqueta.setText(texto + " ✓");
+                    c.vista.setAlpha(0.55f);
+                    chip.setBackgroundResource(R.drawable.bg_field_green);
+                    chip.setEnabled(false);
+                    Feedback.acierto(chip);
+                    if (resueltas() == casillas.size()) {
+                        mensaje("¡Excelente! Relacionaste todas las imágenes. 🎉");
+                        binding.glImagenes.postDelayed(() -> { if (!cerrada()) finalizar(); }, 1200);
+                    } else {
+                        mensaje("¡Muy bien! Sigue con las demás imágenes.");
+                    }
+                } else {
+                    // CU 7, flujo alterno: se indica la respuesta correcta y se permite reintentar
+                    String correcta = ApiClient.txt(json, "respuestaCorrecta");
+                    c.etiqueta.setText(correcta.isEmpty() ? "¡Casi!" : "¡Casi! Es: " + correcta);
+                    Feedback.error(chip);
+                    Feedback.error(c.vista);
+                    mensaje("Esa no coincide: mira la pista e inténtalo otra vez.");
+                }
+            }
+
+            @Override
+            public void onError(String mensaje) {
+                enviando = false;
+                if (cerrada()) return;
+                aviso(mensaje + " Intenta de nuevo.");
+            }
+        });
+    }
+
+    private int resueltas() {
+        int n = 0;
+        for (Casilla c : casillas) if (c.resuelta) n++;
+        return n;
+    }
+
+    private void finalizar() {
+        JSONObject cuerpo = new JSONObject();
+        try {
+            cuerpo.put("idUsuario", idUsuario());
+            cuerpo.put("ticket", ticket);
+            cuerpo.put("nivel", nivel);
+            cuerpo.put("actividad", "imagenes");
+            cuerpo.put("aciertos", aciertos);
+            cuerpo.put("total", casillas.size());
+        } catch (JSONException e) {
+            return;
+        }
+        ApiClient.post("palabras/finalizar", cuerpo, new ApiClient.Respuesta() {
+            @Override
+            public void onExito(JSONObject json) {
+                if (cerrada()) return;
+                if (!json.optBoolean("ok", false)) {
+                    reintentar(json.optString("error", "No pudimos guardar tu resultado"));
+                    return;
+                }
+                ProgresoApi.cargarResumen(RelacionarImagenesActivity.this, (r, e) -> { });
+                ResultadoPalabras.mostrar(RelacionarImagenesActivity.this, json, nuevas, RelacionarImagenesActivity.class);
+            }
+
+            @Override
+            public void onError(String mensaje) {
+                if (cerrada()) return;
+                reintentar(mensaje);
+            }
+        });
+    }
+
+    private void reintentar(String texto) {
         new AlertDialog.Builder(this)
-                .setTitle("¡Excelente!")
-                .setMessage(msg)
+                .setTitle("Ups")
+                .setMessage(texto + ". Toca \"Reintentar\".")
                 .setCancelable(false)
-                .setPositiveButton("Jugar otra vez", (d, w) -> iniciarRonda())
-                .setNegativeButton("Volver", (d, w) -> finish())
+                .setPositiveButton("Reintentar", (d, w) -> finalizar())
+                .setNegativeButton("Salir", (d, w) -> finish())
                 .show();
     }
 }

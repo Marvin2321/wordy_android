@@ -70,13 +70,27 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onExito(JSONObject json) {
                 if (isFinishing() || isDestroyed()) return;
+                if (!json.optBoolean("ok", false)) {
+                    binding.btnIngresar.setEnabled(true);
+                    Toast.makeText(LoginActivity.this, "No se pudo iniciar sesión.", Toast.LENGTH_LONG).show();
+                    return;
+                }
 
-                // La API responde: ok, usuario (nombre), id_usuario, id_rol
+                // La API responde: ok, usuario (nombre), id_usuario, id_rol  (igual que en la web)
                 String id = String.valueOf(json.optLong("id_usuario"));
                 String nombre = json.optString("usuario", usuario);
+                int rol = json.optInt("id_rol", -1);
 
-                SesionManager.iniciar(LoginActivity.this, id, nombre, tipo);
-                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                // El tipo de cuenta elegido debe coincidir con el rol guardado en la BD
+                String aviso = avisoTipo(tipo, rol);
+                if (aviso != null) {
+                    binding.btnIngresar.setEnabled(true);
+                    Toast.makeText(LoginActivity.this, aviso, Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                SesionManager.iniciar(LoginActivity.this, id, nombre, rol);
+                startActivity(new Intent(LoginActivity.this, HomeActivity.class));   // igual que la web: inicio.html
                 finish();
             }
 
@@ -87,5 +101,12 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, mensaje, Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    /** Posición del spinner: 1 = NIÑO, 2 = TUTOR, 3 = DOCENTE. Devuelve un aviso o null si coincide. */
+    private String avisoTipo(int posicion, int rol) {
+        if (posicion == 1 && rol == SesionManager.ROL_TUTOR) return "Esta cuenta es de tutor: elige PADRE / TUTOR.";
+        if (posicion == 2 && rol == SesionManager.ROL_NINO) return "Esta cuenta es de niño: elige NIÑO / NIÑA.";
+        return null;
     }
 }

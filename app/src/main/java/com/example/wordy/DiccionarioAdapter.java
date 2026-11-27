@@ -9,51 +9,37 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wordy.databinding.ItemPalabraDiccionarioBinding;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
+/** Tarjetas del "Diccionario del Gusanito" con lo que manda /api/palabras/mis-palabras. */
 public class DiccionarioAdapter extends RecyclerView.Adapter<DiccionarioAdapter.VH> {
 
-    public interface OnPalabraClick {
-        void onClick(String idPalabra);
+    public interface Acciones {
+        void repasar(JSONObject palabra);
+        void escuchar(JSONObject palabra);
     }
 
-    private static class Item {
-        final String id, palabra, definicion;
-        final boolean conImagen, vacio;
+    private final List<JSONObject> items = new ArrayList<>();
+    private String textoVacio = "";
+    private final Acciones acciones;
 
-        Item(String id, String palabra, String definicion, boolean conImagen, boolean vacio) {
-            this.id = id;
-            this.palabra = palabra;
-            this.definicion = definicion;
-            this.conImagen = conImagen;
-            this.vacio = vacio;
-        }
+    public DiccionarioAdapter(Acciones acciones) {
+        this.acciones = acciones;
     }
 
-    private final List<Item> items = new ArrayList<>();
-    private final OnPalabraClick listener;
-
-    public DiccionarioAdapter(OnPalabraClick listener) {
-        this.listener = listener;
-    }
-
-    /** Muestra las palabras; si no hay ninguna, un mensaje de "aún no hay palabras". */
-    public void setPalabras(List<Palabra> palabras) {
+    /** Muestra las palabras desbloqueadas; si no hay ninguna, una tarjeta con el mensaje. */
+    public void setPalabras(List<JSONObject> palabras, String vacio) {
         items.clear();
-        for (Palabra p : palabras) {
-            items.add(new Item(p.id, p.palabra, p.significado + " Ejemplo: " + p.ejemplo,
-                    p.imagen != 0, false));
-        }
-        if (palabras.isEmpty()) {
-            items.add(new Item(null, "¡Aún no hay palabras!",
-                    "Aún no has desbloqueado palabras en este nivel. ¡Sigue jugando!", false, true));
-        }
+        items.addAll(palabras);
+        textoVacio = vacio;
         notifyDataSetChanged();
     }
 
     public boolean esVacio(int posicion) {
-        return posicion >= 0 && posicion < items.size() && items.get(posicion).vacio;
+        return items.isEmpty() && posicion == 0;
     }
 
     @NonNull
@@ -65,26 +51,35 @@ public class DiccionarioAdapter extends RecyclerView.Adapter<DiccionarioAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull VH h, int position) {
-        Item it = items.get(position);
-        h.b.tvPalabra.setText(it.palabra);
-        h.b.tvDefinicion.setText(it.definicion);
-        h.b.getRoot().setBackgroundResource(
-                it.conImagen ? R.drawable.bg_card_gris : R.drawable.bg_card_white);
-
-        if (it.vacio) {
+        if (items.isEmpty()) {
+            h.b.tvPalabra.setText("¡Aún no hay palabras!");
+            h.b.tvDefinicion.setText(textoVacio);
+            h.b.getRoot().setBackgroundResource(R.drawable.bg_card_white);
             h.b.ivIcono.setVisibility(View.GONE);
             h.b.getRoot().setOnClickListener(null);
             h.b.getRoot().setClickable(false);
-        } else {
-            h.b.ivIcono.setVisibility(View.VISIBLE);
-            h.b.ivIcono.setImageResource(it.conImagen ? R.drawable.ic_enlace : R.drawable.ic_toque);
-            h.b.getRoot().setOnClickListener(v -> listener.onClick(it.id));
+            return;
         }
+        JSONObject p = items.get(position);
+        String emoji = ApiClient.txt(p, "emoji");
+        h.b.tvPalabra.setText((emoji.isEmpty() ? "" : emoji + " ") + ApiClient.txt(p, "palabra"));
+        String ejemplo = ApiClient.txt(p, "ejemplo");
+        int veces = p.optInt("vecesRepasada", 0);
+        h.b.tvDefinicion.setText(ApiClient.txt(p, "significado")
+                + (ejemplo.isEmpty() ? "" : " Ejemplo: " + ejemplo)
+                + (veces > 0 ? "\nRepasada " + veces + (veces == 1 ? " vez" : " veces") : ""));
+
+        boolean conImagen = !ApiClient.txt(p, "imagen").isEmpty();
+        h.b.getRoot().setBackgroundResource(conImagen ? R.drawable.bg_card_gris : R.drawable.bg_card_white);
+        h.b.ivIcono.setVisibility(View.VISIBLE);
+        h.b.ivIcono.setImageResource(conImagen ? R.drawable.ic_enlace : R.drawable.ic_toque);
+        h.b.ivIcono.setOnClickListener(v -> acciones.escuchar(p));
+        h.b.getRoot().setOnClickListener(v -> acciones.repasar(p));
     }
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return items.isEmpty() ? 1 : items.size();
     }
 
     static class VH extends RecyclerView.ViewHolder {

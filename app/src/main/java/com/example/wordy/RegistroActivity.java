@@ -66,7 +66,7 @@ public class RegistroActivity extends AppCompatActivity {
             cuerpo.put("usuario", usuario);
             cuerpo.put("contrasena", contrasena);
             cuerpo.put("tipo_cuenta", tipoParaApi(tipo));
-            cuerpo.put("correo", correo);           // la API actual lo ignora
+            cuerpo.put("correo", correo);           // se guarda en USUARIO.correo
         } catch (JSONException e) {
             Toast.makeText(this, "Error al preparar los datos", Toast.LENGTH_SHORT).show();
             return;
@@ -78,6 +78,12 @@ public class RegistroActivity extends AppCompatActivity {
             @Override
             public void onExito(JSONObject json) {
                 if (isFinishing() || isDestroyed()) return;
+                if (!json.optBoolean("ok", false)) {
+                    binding.btnRegistrar.setEnabled(true);
+                    Toast.makeText(RegistroActivity.this, json.optString("error", "No se pudo registrar la cuenta."),
+                            Toast.LENGTH_LONG).show();
+                    return;
+                }
                 Toast.makeText(RegistroActivity.this, "¡Cuenta creada!", Toast.LENGTH_SHORT).show();
                 finish(); // regresa al login
             }

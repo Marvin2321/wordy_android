@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,15 +17,14 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.navigation.NavigationView;
 
 /**
- - Base de todas las pantallas del juego: envuelve el contenido en un NavigationDrawer
- - y conecta solo el menú (btnMenu), el home (btnHome) y "Regresar" (btnRegresar).
+ * Base de todas las pantallas del juego: envuelve el contenido en un NavigationDrawer
+ * y conecta el menú (btnMenu), el home (btnHome) y "Regresar" (btnRegresar).
+ * Ya no guarda avance local: todo se pide a la API (misma BD que la web).
  */
 public abstract class BaseWordyActivity extends AppCompatActivity {
 
     private DrawerLayout drawer;
     private NavigationView navView;
-    private ProgresoManager progreso;
-    private JuegoManager juego;
 
     private final OnBackPressedCallback cerrarDrawer = new OnBackPressedCallback(false) {
         @Override
@@ -39,6 +39,24 @@ public abstract class BaseWordyActivity extends AppCompatActivity {
         if (SesionManager.usuarioId(this) == null) {
             irALogin();
         }
+    }
+
+    /** true si no hay sesión (la pantalla ya se está cerrando y no debe seguir). */
+    protected boolean sinSesion() {
+        return SesionManager.usuarioId(this) == null;
+    }
+
+    protected String idUsuario() {
+        return SesionManager.usuarioId(this);
+    }
+
+    /** Para callbacks de red: no tocar vistas si la pantalla ya se cerró. */
+    protected boolean cerrada() {
+        return isFinishing() || isDestroyed();
+    }
+
+    protected void aviso(String texto) {
+        Toast.makeText(this, texto, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -69,6 +87,9 @@ public abstract class BaseWordyActivity extends AppCompatActivity {
                 cerrarDrawer.setEnabled(true);
                 actualizarMenuPorRol();
                 actualizarEncabezado();
+                ProgresoApi.cargarResumen(BaseWordyActivity.this, (r, e) -> {
+                    if (!cerrada()) actualizarEncabezado();
+                });
             }
 
             @Override
@@ -109,9 +130,8 @@ public abstract class BaseWordyActivity extends AppCompatActivity {
         String nombre = SesionManager.nombre(this);
         ((TextView) h.findViewById(R.id.tvNavNombre)).setText(nombre.isEmpty()
                 ? getString(R.string.nav_hola_anonimo) : getString(R.string.nav_hola, nombre));
-        Usuario u = progreso().cargar();
-        ((TextView) h.findViewById(R.id.tvNavProgreso))
-                .setText(getString(R.string.nav_progreso, u.racha, u.estrellas));
+        ((TextView) h.findViewById(R.id.tvNavProgreso)).setText(getString(R.string.nav_progreso,
+                SesionManager.racha(this), SesionManager.estrellas(this)));
     }
 
     private void ir(Class<?> destino) {
@@ -125,20 +145,6 @@ public abstract class BaseWordyActivity extends AppCompatActivity {
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(i);
         finish();
-    }
-
-    protected ProgresoManager progreso() {
-        if (progreso == null) {
-            progreso = new ProgresoManager(new ProgresoLocal(this), SesionManager.usuarioId(this));
-        }
-        return progreso;
-    }
-
-    protected JuegoManager juego() {
-        if (juego == null) {
-            juego = new JuegoManager(new JuegoLocal(this, SesionManager.usuarioId(this)));
-        }
-        return juego;
     }
 
     protected int dp(int valor) {
