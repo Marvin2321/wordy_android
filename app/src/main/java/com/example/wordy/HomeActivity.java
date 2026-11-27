@@ -3,14 +3,12 @@ package com.example.wordy;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.wordy.databinding.ActivityHomeBinding;
 
 import java.util.Calendar;
 
 /** Pantalla de inicio (inicio.html): racha, estrellas y refrán del día. Racha y estrellas vienen de WordyDB. */
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends BaseWordyActivity {
 
     private ActivityHomeBinding binding;
 
@@ -18,13 +16,10 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (SesionManager.usuarioId(this) == null) {   // sin sesión: regresa al login
-            irALogin();
-            return;
-        }
+        if (sinSesion()) return;   // la base ya manda al login
 
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        setContentView(binding.getRoot());   // aquí se envuelve en el NavigationDrawer
 
         mostrarRefranDelDia();
         configurarBotones();

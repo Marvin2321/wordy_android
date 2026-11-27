@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="90dp"
+    android:height="90dp"
+    android:viewportWidth="64"
+    android:viewportHeight="64">
+
+    <!-- Estrella amarilla con puntas redondeadas -->
+    <path
+        android:fillColor="#FFD05C"
+        android:strokeColor="#FFD05C"
+        android:strokeWidth="7"
+        android:strokeLineJoin="round"
+        android:pathData="M32,9 L39,25 L55,26 L43,37 L47,53 L32,44.5 L17,53 L21,37 L9,26 L25,25 Z" />
+</vector>

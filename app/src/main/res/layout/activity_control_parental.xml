@@ -248,14 +248,26 @@
                                     android:textColor="#17233B"
                                     android:textSize="28sp" />
 
-                                <TextView
+                                <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="6dp"
-                                    android:fontFamily="@font/fredoka_normal"
-                                    android:text="★\nEstrellas\nAcumuladas"
-                                    android:textColor="#17233B"
-                                    android:textSize="10sp" />
+                                    android:orientation="vertical">
+
+                                    <ImageView
+                                        android:layout_width="18dp"
+                                        android:layout_height="18dp"
+                                        android:importantForAccessibility="no"
+                                        android:src="@drawable/ic_estrella_racha" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/fredoka_normal"
+                                        android:text="Estrellas\nAcumuladas"
+                                        android:textColor="#17233B"
+                                        android:textSize="10sp" />
+                                </LinearLayout>
                             </LinearLayout>
 
                             <LinearLayout
@@ -340,15 +352,26 @@
                                     android:text="7"
                                     android:textColor="#17233B"
                                     android:textSize="28sp" />
-
-                                <TextView
+                                <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="6dp"
-                                    android:fontFamily="@font/fredoka_normal"
-                                    android:text="★\nEstrellas\nAcumuladas"
-                                    android:textColor="#17233B"
-                                    android:textSize="10sp" />
+                                    android:orientation="vertical">
+
+                                    <ImageView
+                                        android:layout_width="18dp"
+                                        android:layout_height="18dp"
+                                        android:importantForAccessibility="no"
+                                        android:src="@drawable/ic_estrella_racha" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/fredoka_normal"
+                                        android:text="Estrellas\nAcumuladas"
+                                        android:textColor="#17233B"
+                                        android:textSize="10sp" />
+                                </LinearLayout>
                             </LinearLayout>
 
                             <LinearLayout

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="90dp"
+    android:height="90dp"
+    android:viewportWidth="64"
+    android:viewportHeight="64">
+
+    <!-- Llama exterior (roja) -->
+    <path
+        android:fillColor="#F1473A"
+        android:pathData="M33,3 C34,13 44,19 49,31 C54,44 46,60 32,60 C18,60 9,48 14,35 C16,30 19,27 21,21 C24,25 26,28 29,28 C32,22 31,11 33,3 Z" />
+
+    <!-- Llama media (naranja) -->
+    <path
+        android:fillColor="#F79326"
+        android:pathData="M32,27 C34,35 43,39 44,48 C45,56 39,60 32,60 C25,60 19,56 20,48 C21,41 28,37 32,27 Z" />
+
+    <!-- Llama interior (amarilla) -->
+    <path
+        android:fillColor="#FFF533"
+        android:pathData="M32,42 C34,46 38,49 38,54 C38,58 35,60 32,60 C29,60 26,58 26,54 C26,49 30,46 32,42 Z" />
+</vector>
